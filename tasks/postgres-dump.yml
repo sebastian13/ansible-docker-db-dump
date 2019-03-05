@@ -1,0 +1,28 @@
+---
+
+- name: Download docker-postgres-dump.sh
+  get_url:
+    url: https://gist.githubusercontent.com/sebastian13/c313c055a59342acb9f0a7a3d5d03c09/raw/docker-postgres-dump.sh
+    dest: '{{ item.path }}'
+    mode: 0755
+    force: yes
+  with_items: '{{ docker_postgres }}'
+  when: docker_postgres is defined
+
+- name: Download docker-postgres-restore.sh
+  get_url:
+    url: https://gist.githubusercontent.com/sebastian13/c313c055a59342acb9f0a7a3d5d03c09/raw/docker-postgres-restore.sh
+    dest: '{{ item.path }}'
+    mode: 0755
+    force: yes
+  with_items: '{{ docker_postgres }}'
+  when: docker_postgres is defined
+
+- name: Create dump cron
+  cron:
+    name: "Dump {{ item.name }}"
+    minute: "{{ 60 | random(seed=item.path) }}"
+    hour: "{{ 6 | random(seed=item.path) }}"
+    job: "{{ item.path }}/docker-postgres-dump.sh > /dev/null"
+  with_items: '{{ docker_postgres }}'
+  when: docker_postgres is defined
