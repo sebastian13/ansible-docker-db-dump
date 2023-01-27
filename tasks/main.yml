@@ -1,4 +1,9 @@
 ---
 
+- name: Install dependencies
+  apt: pkg=moreutils state=latest
+  become: true
+
 - include: 'mysql-dump.yml'
 - include: 'postgres-dump.yml'
+- include: 'zabbix-mysql-dump.yml'

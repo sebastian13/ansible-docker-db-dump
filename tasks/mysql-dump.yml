@@ -23,6 +23,6 @@
     name: "Dump {{ item.name }}"
     minute: "{{ 60 | random(seed=item.path) }}"
     hour: "{{ 6 | random(seed=item.path) }}"
-    job: "{{ item.path }}/docker-mysql-dump.sh > /dev/null"
+    job: "chronic {{ item.path }}/docker-mysql-dump.sh"
   with_items: '{{ docker_mysql }}'
   when: docker_mysql is defined
