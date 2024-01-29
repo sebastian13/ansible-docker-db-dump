@@ -1,0 +1,6 @@
+galaxy_info:
+  author: Sebastian Plocek
+  description: Deploy backups scripts to create dumps of docker containers running mysql or postgres
+  company: PG IT Consulting eG
+  license: license Apache-2.0
+  min_ansible_version: 2.1
