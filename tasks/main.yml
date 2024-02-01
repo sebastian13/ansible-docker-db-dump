@@ -1,9 +1,15 @@
 ---
 
 - name: Install dependencies
-  apt: pkg=moreutils state=latest
+  ansible.builtin.apt:
+    name: moreutils
   become: true
 
-- include: 'mysql-dump.yml'
-- include: 'postgres-dump.yml'
-- include: 'zabbix-mysql-dump.yml'
+- name: Deploy Scripts for MySQL
+  ansible.builtin.include_tasks: 'mysql-dump.yml'
+
+- name: Deploy Scripts for MySQL Postgres
+  ansible.builtin.include_tasks: 'postgres-dump.yml'
+
+- name: Deploy Scripts for MySQL Zabbix
+  ansible.builtin.include_tasks: 'zabbix-mysql-dump.yml'

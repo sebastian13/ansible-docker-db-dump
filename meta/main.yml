@@ -5,13 +5,14 @@ galaxy_info:
   author: "Sebastian Plocek"
   description: "Deploy backups scripts to create dumps of docker containers running mysql or postgres"
   company: "PG IT Consulting eG"
-  license: "Apache-2.0"
-  min_ansible_version: 2.1
+  license: "GNU GPLv3"
+  min_ansible_version: "2.1"
 
   platforms:
     - name: "Debian"
       versions:
         - "bullseye"
+        - "bookworm"
 
   galaxy_tags:
     - "containers"
