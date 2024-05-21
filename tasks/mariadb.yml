@@ -1,0 +1,28 @@
+---
+
+- name: Download docker-mariadb-dump.sh
+  ansible.builtin.get_url:
+    url: https://gist.githubusercontent.com/sebastian13/4f54cd7fa1a45efc004cdc595aa4ae36/raw/docker-mariadb-dump.sh
+    dest: '{{ item.path }}'
+    mode: '0755'
+    force: true
+  with_items: '{{ docker_mariadb }}'
+  when: docker_mariadb is defined
+
+- name: Download docker-mariadb-restore.sh
+  ansible.builtin.get_url:
+    url: https://gist.githubusercontent.com/sebastian13/4f54cd7fa1a45efc004cdc595aa4ae36/raw/docker-mariadb-restore.sh
+    dest: '{{ item.path }}'
+    mode: '0755'
+    force: true
+  with_items: '{{ docker_mariadb }}'
+  when: docker_mariadb is defined
+
+- name: Create dump cron
+  ansible.builtin.cron:
+    name: "Dump {{ item.name }}"
+    minute: "{{ 60 | random(seed=item.path) }}"
+    hour: "{{ 6 | random(seed=item.path) }}"
+    job: "chronic {{ item.path }}/docker-mariadb-dump.sh"
+  with_items: '{{ docker_mariadb }}'
+  when: docker_mariadb is defined

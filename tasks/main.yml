@@ -6,10 +6,13 @@
   become: true
 
 - name: Deploy Scripts for MySQL
-  ansible.builtin.include_tasks: 'mysql-dump.yml'
+  ansible.builtin.include_tasks: 'mysql.yml'
 
-- name: Deploy Scripts for MySQL Postgres
-  ansible.builtin.include_tasks: 'postgres-dump.yml'
+- name: Deploy Scripts for Mariadb
+  ansible.builtin.include_tasks: 'mariadb.yml'
+
+- name: Deploy Scripts for Postgres
+  ansible.builtin.include_tasks: 'postgres.yml'
 
 - name: Deploy Scripts for MySQL Zabbix
-  ansible.builtin.include_tasks: 'zabbix-mysql-dump.yml'
+  ansible.builtin.include_tasks: 'zabbix-mysql.yml'
