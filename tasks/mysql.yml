@@ -1,21 +1,20 @@
 ---
-
 - name: Download docker-mysql-dump.sh
   ansible.builtin.get_url:
     url: https://gist.githubusercontent.com/sebastian13/cc58304f7b177ac1d16d7671dc67efb9/raw/docker-mysql-dump.sh
-    dest: '{{ item.path }}'
-    mode: '0755'
+    dest: "{{ item.path }}"
+    mode: "0755"
     force: true
-  with_items: '{{ docker_mysql }}'
+  with_items: "{{ docker_mysql }}"
   when: docker_mysql is defined
 
 - name: Download docker-mysql-restore.sh
   ansible.builtin.get_url:
     url: https://gist.githubusercontent.com/sebastian13/cc58304f7b177ac1d16d7671dc67efb9/raw/docker-mysql-restore.sh
-    dest: '{{ item.path }}'
-    mode: '0755'
+    dest: "{{ item.path }}"
+    mode: "0755"
     force: true
-  with_items: '{{ docker_mysql }}'
+  with_items: "{{ docker_mysql }}"
   when: docker_mysql is defined
 
 - name: Create dump cron
@@ -24,5 +23,5 @@
     minute: "{{ 60 | random(seed=item.path) }}"
     hour: "{{ 6 | random(seed=item.path) }}"
     job: "chronic {{ item.path }}/docker-mysql-dump.sh"
-  with_items: '{{ docker_mysql }}'
+  with_items: "{{ docker_mysql }}"
   when: docker_mysql is defined

@@ -1,18 +1,17 @@
 ---
-
 - name: Install dependencies
   ansible.builtin.apt:
     name: moreutils
   become: true
 
 - name: Deploy Scripts for MySQL
-  ansible.builtin.include_tasks: 'mysql.yml'
+  ansible.builtin.include_tasks: "mysql.yml"
 
 - name: Deploy Scripts for Mariadb
-  ansible.builtin.include_tasks: 'mariadb.yml'
+  ansible.builtin.include_tasks: "mariadb.yml"
 
 - name: Deploy Scripts for Postgres
-  ansible.builtin.include_tasks: 'postgres.yml'
+  ansible.builtin.include_tasks: "postgres.yml"
 
 - name: Deploy Scripts for MySQL Zabbix
-  ansible.builtin.include_tasks: 'zabbix-mysql.yml'
+  ansible.builtin.include_tasks: "zabbix-mysql.yml"
