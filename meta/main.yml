@@ -1,7 +1,8 @@
 ---
 
 galaxy_info:
-  role_name: "docker-db-dump"
+  namespace: "sebastian13"
+  role_name: "docker_db_dump"
   author: "Sebastian Plocek"
   description: "Deploy backups scripts to create dumps of docker containers running mysql or postgres"
   company: "PG IT Consulting eG"

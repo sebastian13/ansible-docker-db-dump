@@ -1,26 +1,25 @@
 # Ansible Docker Database Dump
 
-This playbook deploys backups scripts to backup docker container running a mysql or postgres database. It deploys the scripts [docker-mysql-dump.sh](https://gist.github.com/sebastian13/cc58304f7b177ac1d16d7671dc67efb9#file-docker-mysql-dump-sh) and [docker-postgres-dump.sh](https://gist.github.com/sebastian13/c313c055a59342acb9f0a7a3d5d03c09), and creates entries in crontab to run the scripts each morning.
+This role deploys backup scripts for Docker containers running MySQL or PostgreSQL databases. It installs the scripts [docker-mysql-dump.sh](https://gist.github.com/sebastian13/cc58304f7b177ac1d16d7671dc67efb9#file-docker-mysql-dump-sh) and [docker-postgres-dump.sh](https://gist.github.com/sebastian13/c313c055a59342acb9f0a7a3d5d03c09), and creates cron entries to run them each morning.
 
 ## How to use
 
-1. Clone this repo in `roles`
+1. Install the role or clone it into `roles`
 
-	```
-	cd roles
-	git clone https://github.com/sebastian13/ansible-docker-db-dump.git
+	```bash
+	ansible-galaxy role install sebastian13.docker_db_dump
 	```
 
 1. Create a playbook `docker-db-dump.yml`
 
 	```yaml
 	---
-	- name: Docker Databse Dump
+	- name: Docker Database Dump
 	  hosts: "{{ hostname | default('docker-db-dump') }}"
 	  become: true
-	
+
 	  roles:
-	    - docker-db-dump
+	    - role: sebastian13.docker_db_dump
 	```
 
 1. Define hosts in the `hosts` file
@@ -52,7 +51,7 @@ This playbook deploys backups scripts to backup docker container running a mysql
 
 ## Requirements
 
-The `docker-compose.yml` within the specified path must include a service called `mysql` or `postgres`. The environment varaibles must be linked and specified in the file `.env`.
+The `docker-compose.yml` within the specified path must include a service called `mysql` or `postgres`. The environment variables must be linked and specified in the file `.env`.
 
 - **Example `docker-compose.yml`**
 
